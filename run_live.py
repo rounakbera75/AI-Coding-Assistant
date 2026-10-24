@@ -66,13 +66,7 @@ if not flask_ready:
     print("Note: /health not responding yet, proceeding with tunnel anyway...")
 
 cloudflared_bin = os.path.join(workspace, "cloudflared.exe")
-cert_bundle = os.path.join(workspace, ".venv", "Lib", "site-packages", "certifi", "cacert.pem")
-cmd = [cloudflared_bin, "tunnel", "--protocol", "http2", "--edge-ip-version", "4", "--url", "http://127.0.0.1:5000"]
-
-cf_env = os.environ.copy()
-if os.path.exists(cert_bundle):
-    cf_env["SSL_CERT_FILE"] = cert_bundle
-    cmd.extend(["--origin-ca-pool", cert_bundle])
+cmd = [cloudflared_bin, "tunnel", "--protocol", "quic", "--edge-ip-version", "4", "--url", "http://127.0.0.1:5000"]
 
 print(f"2. Starting Cloudflare Tunnel using {cloudflared_bin}...")
 cf_proc = subprocess.Popen(
@@ -82,8 +76,7 @@ cf_proc = subprocess.Popen(
     stderr=subprocess.STDOUT,
     text=True,
     encoding="utf-8",
-    errors="replace",
-    env=cf_env
+    errors="replace"
 )
 
 public_url = None
