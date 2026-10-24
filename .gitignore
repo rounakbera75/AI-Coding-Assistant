@@ -1,4 +1,4 @@
-﻿# Environment variables
+# Environment variables
 .env
 .env.local
 .env.*.local
@@ -29,3 +29,4 @@ Thumbs.db
 .vscode/
 .idea/
 cloudflared.exe
+PUBLIC_LINK.txt

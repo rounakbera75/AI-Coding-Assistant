@@ -1,14 +1,15 @@
-﻿# ⚡ Nexus AI Pro — Ultimate AI Studio for Students, Streamers & Developers
+# ⚡ Nexus AI Pro — Ultimate Multimodal AI Studio (Vision • Voice • Web Search)
 
 <div align="center">
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg)
 ![Flask](https://img.shields.io/badge/Flask-3.x-black.svg)
+![Vision](https://img.shields.io/badge/Vision-Multimodal-ff69b4.svg)
 ![Streaming](https://img.shields.io/badge/Streaming-SSE-purple.svg)
 ![Language](https://img.shields.io/badge/Language-English%20%7C%20%E0%A6%AC%E0%A6%BE%E0%A6%82%E0%A6%B2%E0%A6%BE-orange.svg)
 
-**A high-speed, versatile AI Studio built for everyday students, content creators, gaming streamers, and software engineers.**
+**A high-speed, versatile Multimodal AI Studio with Vision (ছবি আপলোড), Voice Chat (মাইক ও স্পিকার), Live Web Search, and Bilingual AI assistance (বাংলা ও English).**
 
 [English](#-english-overview) • [বাংলা বিবরণ](#-বাংলা-বিবরণ) • [Quick Start](#-quick-start) • [Deployment](#-free-cloud-deployment)
 
@@ -18,30 +19,37 @@
 
 ## 🌟 Key Features / প্রধান বৈশিষ্ট্যসমূহ
 
-### 1. 🎓 Student & Academic Mentor Mode (শিক্ষার্থীদের জন্য)
+### 1. 📸 Multimodal Vision (ছবি ও স্ক্রিনশট বিশ্লেষণ)
+- **Image Upload & Analysis**: Upload or drag-and-drop any image, diagram, chart, or screenshot.
+- **Clipboard Paste (`Ctrl + V`)**: Direct paste screenshots from clipboard for instant analysis.
+- **Math & Problem Solving from Photos**: Take a photo of math or homework problems and get instant step-by-step solutions.
+
+### 2. 🎙️ Voice Chat (ভয়েস ইনপুট ও অডিও স্পিকার)
+- **Speech-to-Text (Voice Dictation)**: Click the microphone icon to speak in Bengali or English; audio is transcribed directly in real time.
+- **Text-to-Speech (TTS - Listen)**: Click "🔊 Listen" on any response to have the AI read the explanation aloud in natural Bengali or English.
+
+### 3. 🌐 Live Web Search
+- **Real-Time Knowledge**: Toggle Web Search to pull live internet facts and enrich AI responses.
+
+### 4. 🎓 Student & Academic Mentor Mode (শিক্ষার্থীদের জন্য)
 - **Step-by-Step Math Solver**: Solves quadratic equations, calculus, algebra, and physics numericals with clear formulas.
-- **Science & Concept Explainer**: Breaks down complex topics (Photosynthesis, Quantum Physics, Economics) with intuitive everyday analogies.
+- **Science & Concept Explainer**: Breaks down complex topics with intuitive everyday analogies.
 - **বাংলায় রচনা ও সারাংশ**: স্কুল, কলেজ ও বিশ্ববিদ্যালয়ের পরীক্ষার জন্য মানসম্মত রচনা, ভাবসম্প্রসারণ এবং সংক্ষিপ্ত নোট।
-- **KaTeX Formula Rendering**: Beautiful mathematical formulas and symbols rendered seamlessly.
+- **KaTeX Formula Rendering**: Beautiful mathematical formulas rendered seamlessly.
 
-### 2. 🎮 Streamer & Content Creator Studio (স্ট্রিমার ও কনটেন্ট ক্রিয়েটরদের জন্য)
-- **Viral YouTube Titles & Hooks**: Generates high-CTR, click-worthy video titles and punchy 15-second opening hooks.
-- **Live Chat Banter & Polls**: Keeps live viewers engaged with witty commentary, audience poll questions, and chat games.
-- **High-SEO Video Descriptions & Tags**: Optimized descriptions with chapter timestamps and trending hashtags for YouTube, Twitch, and TikTok.
-- **Sponsorship Outreach**: Drafts confident, professional email pitches to gaming and tech sponsors.
+### 5. 🎮 Streamer & Content Creator Studio
+- **Viral YouTube Titles & Hooks**: High-CTR, click-worthy video titles and opening hooks.
+- **Live Chat Banter & Polls**: Keeps live viewers engaged with witty commentary and chat games.
+- **High-SEO Video Descriptions & Tags**: Optimized descriptions with trending hashtags.
 
-### 3. 💻 Senior Coder Pro Mode (ডেভেলপার ও প্রোগ্রামারদের জন্য)
-- **Production-Grade Code**: Generates clean, secure code in Python, JavaScript, TypeScript, C++, Java, Go, Rust, SQL, Bash, and more.
-- **Bug Hunter & Stacktrace Debugger**: Pinpoints syntax/logic errors and gives verified drop-in fixes.
-- **Syntax Highlighting & 1-Click Copy**: Highlight.js syntax highlighting with language header tags and instant copy button.
+### 6. 💻 Senior Coder Pro Mode
+- **Production-Grade Code**: Clean, secure code in Python, JavaScript, TypeScript, C++, Java, Go, Rust, SQL, Bash.
+- **Syntax Highlighting & 1-Click Copy**: Atom One Dark theme with language badges and instant copy button.
 
-### 4. 🎙️ Voice Input & 🔊 Voice Readout
-- **Speech-to-Text (Voice Dictation)**: Click the microphone icon to speak in Bengali or English; audio is transcribed directly.
-- **Text-to-Speech (TTS - Listen)**: Click "🔊 Listen" on any response to have the AI read the explanation aloud.
-
-### 5. 🌐 Multi-Provider & 100% Free AI Support
-- **⚡ Groq (Recommended Free Tier)**: Ultra-blazing 800 tokens/second powered by Llama 3.3 70B.
-- **✨ Google Gemini**: Free tier integration via Gemini 1.5 Flash.
+### 7. 🚀 Multi-Provider & 100% Free AI Engine Fallback
+- **Built-in Zero-Key Fallback**: Guaranteed 100% uptime even if API quotas expire.
+- **⚡ Groq**: Blazing 800 tokens/second powered by Llama 3.3 70B & Llama 3.2 11B Vision.
+- **✨ Google Gemini**: Free tier integration via Gemini 2.0 Flash / 1.5 Flash.
 - **🟢 OpenAI & DeepSeek**: Full compatibility with OpenAI GPT-4o-mini / GPT-4o and DeepSeek.
 
 ---
@@ -50,7 +58,7 @@
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/AI-Coding-Assistant.git
+git clone https://github.com/rounakbera75/AI-Coding-Assistant.git
 cd AI-Coding-Assistant
 ```
 
