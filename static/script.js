@@ -421,24 +421,66 @@ async function handleChatSubmit(e) {
     }));
 
     try {
-        const response = await fetch("/chat/stream", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            signal: STATE.abortController.signal,
-            body: JSON.stringify({
-                message: prompt,
-                history: contextHistory,
-                api_key: STATE.settings.apiKey || undefined,
-                base_url: STATE.settings.baseUrl || undefined,
-                model: STATE.settings.model || undefined
-            })
-        });
+        let response = null;
+        const isStatic = location.protocol === 'file:' || location.hostname.endsWith('github.io');
 
-        if (!response.ok) {
-            const errData = await response.json().catch(() => ({}));
-            throw new Error(errData.error || `HTTP ${response.status}: Request failed`);
+        if (!isStatic) {
+            try {
+                response = await fetch("/chat/stream", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    signal: STATE.abortController.signal,
+                    body: JSON.stringify({
+                        message: prompt,
+                        history: contextHistory,
+                        api_key: STATE.settings.apiKey || undefined,
+                        base_url: STATE.settings.baseUrl || undefined,
+                        model: STATE.settings.model || undefined
+                    })
+                });
+            } catch (err) {
+                console.warn("Backend /chat/stream unreachable, trying direct client mode", err);
+            }
+        }
+
+        if (!response || !response.ok) {
+            const directKey = (STATE.settings.apiKey || "").trim();
+            if (!directKey) {
+                openSettingsModal();
+                throw new Error("⚠️ Welcome to Nexus AI! Please enter your free API Key in Settings (⚙️) to chat on GitHub Pages.");
+            }
+
+            let directBase = (STATE.settings.baseUrl || "https://api.groq.com/openai/v1").trim().replace(/\/+$/, "");
+            if (!directBase.endsWith("/v1") && !directBase.includes("generativelanguage")) {
+                directBase += "/v1";
+            }
+            const directUrl = directBase + "/chat/completions";
+
+            response = await fetch(directUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${directKey}`
+                },
+                signal: STATE.abortController.signal,
+                body: JSON.stringify({
+                    model: STATE.settings.model || "llama-3.3-70b-versatile",
+                    messages: [
+                        { role: "system", content: "You are Nexus AI Pro — high-speed AI Copilot for students, streamers & developers. Provide detailed answers and code snippets with explanations. Reply fluently in Bengali or English." },
+                        ...contextHistory,
+                        { role: "user", content: prompt }
+                    ],
+                    stream: true,
+                    max_tokens: 3000,
+                    temperature: 0.7
+                })
+            });
+
+            if (!response.ok) {
+                const errData = await response.json().catch(() => ({}));
+                const msg = errData.error ? (errData.error.message || JSON.stringify(errData.error)) : `HTTP ${response.status}`;
+                throw new Error(msg);
+            }
         }
 
         const reader = response.body.getReader();
@@ -457,7 +499,7 @@ async function handleChatSubmit(e) {
             for (const line of lines) {
                 if (line.startsWith("data: ")) {
                     const jsonStr = line.slice(6).trim();
-                    if (!jsonStr) continue;
+                    if (!jsonStr || jsonStr === "[DONE]") break;
 
                     try {
                         const parsed = JSON.parse(jsonStr);
@@ -468,6 +510,9 @@ async function handleChatSubmit(e) {
 
                         if (parsed.content) {
                             accumulatedText += parsed.content;
+                            updateStreamingBubble(bubbleEl, accumulatedText);
+                        } else if (parsed.choices && parsed.choices[0] && parsed.choices[0].delta && parsed.choices[0].delta.content) {
+                            accumulatedText += parsed.choices[0].delta.content;
                             updateStreamingBubble(bubbleEl, accumulatedText);
                         }
 
