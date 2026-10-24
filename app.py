@@ -1,4 +1,4 @@
-﻿import os
+import os
 import ssl
 import time
 import json
@@ -354,5 +354,4 @@ def chat_sync():
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
-    debug = os.getenv("FLASK_ENV") != "production"
-    app.run(host="0.0.0.0", port=port, debug=debug)
+    app.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)
